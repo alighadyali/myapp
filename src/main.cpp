@@ -54,6 +54,7 @@ TODO: Specify the message formats in the README file.
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
+#include "../inc/parser.h"
 
 #define PROGNAME "socketcan-raw-demo"
 #define VERSION "2.0.0"
@@ -99,6 +100,7 @@ void version() {
 }
 
 void processFrame(const struct canfd_frame& frame) {
+  // std::cout << frame.can_id << std::endl;
   switch (frame.can_id) {
     case 0x0A0: {
       EngineFrame engine;
@@ -131,6 +133,7 @@ void processFrame(const struct canfd_frame& frame) {
 
 int main(int argc, char** argv) {
   using namespace std::chrono_literals;
+  myapp::Parser parser;
 
   // Options
   const char* interface;
@@ -207,13 +210,21 @@ int main(int argc, char** argv) {
 
   // Set a receive filter so we only receive select CAN IDs
   {
-    struct can_filter filter[3];
+    struct can_filter filter[7];
     filter[0].can_id = 0x0A0;
     filter[0].can_mask = CAN_SFF_MASK;
     filter[1].can_id = 0x110;
     filter[1].can_mask = CAN_SFF_MASK;
     filter[2].can_id = 0x320;
     filter[2].can_mask = CAN_SFF_MASK;
+    filter[3].can_id = CAN_IDS::ENGINE;
+    filter[3].can_mask = CAN_SFF_MASK;
+    filter[4].can_id = CAN_IDS::TIME_MACHINE;
+    filter[4].can_mask = CAN_SFF_MASK;
+    filter[5].can_id = CAN_IDS::GYROSCOPE;
+    filter[5].can_mask = CAN_SFF_MASK;
+    filter[6].can_id = CAN_IDS::GPS;
+    filter[6].can_mask = CAN_SFF_MASK;
 
     rc = ::setsockopt(sockfd, SOL_CAN_RAW, CAN_RAW_FILTER, &filter,
                       sizeof(filter));
@@ -262,7 +273,8 @@ int main(int argc, char** argv) {
     auto numBytes = ::read(sockfd, &frame, CANFD_MTU);
     switch (numBytes) {
       case CAN_MTU:
-        processFrame(frame);
+        // processFrame(frame);
+        parser.parse(frame);
         break;
       case CANFD_MTU:
         // TODO: Should make an example for CAN FD
