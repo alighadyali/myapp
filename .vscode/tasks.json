@@ -1,0 +1,44 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "debug",
+            "type": "shell",
+            "command": "make debug",
+            "args": [],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "make clean",
+            "args": [],
+            "group": "build",
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "Run",
+            "type": "shell",
+            "command": "./build/target.out vcan0 -f",
+            "windows": {},
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        }
+    ]
+}

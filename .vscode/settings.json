@@ -1,0 +1,8 @@
+{
+    "C_Cpp.clang_format_style": "Google",
+    "editor.formatOnType": true,
+    "files.autoSaveDelay": 5,
+    "files.associations": {
+        "util.h": "c"
+    },
+}
