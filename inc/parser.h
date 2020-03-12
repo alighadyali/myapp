@@ -7,6 +7,10 @@
 #include <stdio.h>
 #include <iostream>
 #include "engine.h"
+#include "timeMachine.h"
+#include "gyroscope.h"
+#include "gps.h"
+#include <iomanip>
 
 enum CAN_IDS {
   ENGINE = 0XDE,
@@ -28,6 +32,9 @@ class Parser {
 
  private:
   Engine engine;
+  TimeMachine timeMachine;
+  Gyroscope gyroscope;
+  Gps gps;
 };
 
 }  // namespace myapp

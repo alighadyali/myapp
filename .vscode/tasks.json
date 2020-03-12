@@ -27,6 +27,21 @@
             "problemMatcher": "$gcc"
         },
         {
+            "label": "clean debug and run",
+            "type": "shell",
+            "command": "./build/target.out vcan0 -f",
+            "args": [],
+            "group": "build",
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": "$gcc",
+            "dependsOn": [
+                "clean",
+                "debug"
+            ]
+        },
+        {
             "label": "Run",
             "type": "shell",
             "command": "./build/target.out vcan0 -f",
