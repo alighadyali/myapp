@@ -54,6 +54,7 @@ TODO: Specify the message formats in the README file.
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
+#include "../inc/curses.h"
 #include "../inc/parser.h"
 
 #define PROGNAME "socketcan-raw-demo"
@@ -133,7 +134,10 @@ void processFrame(const struct canfd_frame& frame) {
 
 int main(int argc, char** argv) {
   using namespace std::chrono_literals;
-  myapp::Parser parser;
+  myapp::Curses curses;
+  myapp::Parser parser(curses);
+
+  curses.init();
 
   // Options
   const char* interface;
@@ -287,7 +291,7 @@ int main(int argc, char** argv) {
         std::perror("read");
         std::this_thread::sleep_for(100ms);
       default:
-        continue; 
+        continue;
     }
   }
 
@@ -296,8 +300,8 @@ int main(int argc, char** argv) {
     std::perror("close");
     return errno;
   }
-
   std::cout << std::endl << "Bye!" << std::endl;
+  curses.close();
   return EXIT_SUCCESS;
 
   // Error handling (reverse order cleanup)

@@ -22,7 +22,7 @@ class Engine {
   ~Engine();
   void process(const canfd_frame& frame);
 
-  EngineFrame& getEngineFrame();
+  const EngineFrame& get()const;
 
  private:
   EngineFrame engineFrame;

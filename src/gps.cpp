@@ -22,4 +22,6 @@ void Gps::process(const canfd_frame& frame) {
   cout << "lat= " << gpsFrame.lat << " lon= " << gpsFrame.lon << endl;
 }
 
+const GpsFrame& Gps::get() const { return gpsFrame; }
+
 }  // namespace myapp

@@ -7,6 +7,8 @@ Gyroscope::Gyroscope(const int16_t& can_id)
 
 Gyroscope::~Gyroscope() {}
 
+const GyroscopeFrame& Gyroscope::get() const { return gyroscopeFrame; }
+
 void Gyroscope::process(const canfd_frame& frame) {
   union {
     uint64_t num;
@@ -14,7 +16,7 @@ void Gyroscope::process(const canfd_frame& frame) {
   } data;
 
   data.num = le64toh(*(uint64_t*)frame.data);
-cout << "0x" << hex << uppercase << setw(16) << setfill('0') << data.num
+  cout << "0x" << hex << uppercase << setw(16) << setfill('0') << data.num
        << endl;
 
   gyroscopeFrame.yaw = data.bytes[0];

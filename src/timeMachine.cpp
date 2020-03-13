@@ -7,6 +7,8 @@ TimeMachine::TimeMachine(const int16_t& can_id)
 
 TimeMachine::~TimeMachine() {}
 
+const TimeMachineFrame& TimeMachine::get() const { return timeMachineFrame; }
+
 void TimeMachine::process(const canfd_frame& frame) {
   union {
     int64_t num;

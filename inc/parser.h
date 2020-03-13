@@ -5,12 +5,13 @@
 #include <linux/can/raw.h>
 #include <stdint.h>
 #include <stdio.h>
-#include <iostream>
-#include "engine.h"
-#include "timeMachine.h"
-#include "gyroscope.h"
-#include "gps.h"
 #include <iomanip>
+#include <iostream>
+#include "curses.h"
+#include "engine.h"
+#include "gps.h"
+#include "gyroscope.h"
+#include "timeMachine.h"
 
 enum CAN_IDS {
   ENGINE = 0XDE,
@@ -23,18 +24,19 @@ namespace myapp {
 
 class Parser {
  public:
-  Parser();
+  Parser(Curses& _curses);
 
   ~Parser();
 
   void parse(const canfd_frame& frame);
-  void test();
+  const TimeMachineFrame& get() const;
 
  private:
   Engine engine;
   TimeMachine timeMachine;
   Gyroscope gyroscope;
   Gps gps;
+  Curses& curses;
 };
 
 }  // namespace myapp

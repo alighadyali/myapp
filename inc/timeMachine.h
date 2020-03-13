@@ -23,6 +23,8 @@ class TimeMachine {
 
   void process(const canfd_frame& frame);
 
+  const TimeMachineFrame& get() const;
+
  private:
   TimeMachineFrame timeMachineFrame;
 };

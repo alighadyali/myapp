@@ -5,7 +5,7 @@ namespace myapp {
 Engine::Engine(const int16_t& can_id) : engineFrame{can_id, 0, 0, 0} {}
 Engine::~Engine() {}
 
-EngineFrame& Engine::getEngineFrame() { return engineFrame; }
+const EngineFrame& Engine::get() const { return engineFrame; }
 
 void Engine::process(const canfd_frame& frame) {
   union {
@@ -19,7 +19,7 @@ void Engine::process(const canfd_frame& frame) {
 
   engineFrame.speed = data.bytes[0];
   engineFrame.temp = data.bytes[1];
-  engineFrame.rpm = (data.bytes[3] << 8) | data.bytes[2];
+  engineFrame.rpm = static_cast<int16_t>((data.bytes[3] << 8) | data.bytes[2]);
 
   cout << dec << "speed= " << (int)engineFrame.speed
        << "temp= " << (int)engineFrame.temp << " rpm= " << (int)engineFrame.rpm

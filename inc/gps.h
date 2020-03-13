@@ -4,8 +4,8 @@
 #include <byteswap.h>
 #include <linux/can.h>
 #include <linux/can/raw.h>
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 
 namespace myapp {
 
@@ -20,6 +20,8 @@ class Gps {
   ~Gps();
 
   void process(const canfd_frame& frame);
+
+  const GpsFrame& get() const;
 
  private:
   GpsFrame gpsFrame;

@@ -4,8 +4,8 @@
 #include <byteswap.h>
 #include <linux/can.h>
 #include <linux/can/raw.h>
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 
 namespace myapp {
 
@@ -21,6 +21,8 @@ class Gyroscope {
   ~Gyroscope();
 
   void process(const canfd_frame& frame);
+
+  const GyroscopeFrame& get() const;
 
  private:
   GyroscopeFrame gyroscopeFrame;

@@ -30,6 +30,9 @@ INC_DIRS := $(shell find $(SRC_DIRS) -type d)
 # Adds those directories to the include path
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
+# Adds a flag for linking ncurses library
+LDFLAGS += -lncurses
+
 # -MMD -MP generate dependency files next to .o
 CPPFLAGS ?= $(INC_FLAGS) -MMD -MP
 CPPFLAGS += -std=c++11
